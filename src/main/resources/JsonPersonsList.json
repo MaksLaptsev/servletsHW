@@ -1,0 +1,12 @@
+{"1":{"id":1,"name":"Georg","login":"employee1","password":"12345Qwerty","role":[{"id":1,"role":"ADMIN"}]},
+  "2":{"id":2,"name":"Vasya","login":"Vasya_1002","password":"12345Qwerty","role":[{"id":2,"role":"USER"}]},
+  "3":{"id":3,"name":"Leonid","login":"Leonid1234","password":"12345Qwerty","role":[{"id":1,"role":"ADMIN"}]},
+  "4":{"id":4,"name":"Jesus","login":"Jesus_1995","password":"12345Qwerty","role":[{"id":2,"role":"USER"}]},
+  "5":{"id":5,"name":"Poll","login":"wiskas","password":"12345Qwerty","role":[{"id":2,"role":"USER"}]},
+  "6":{"id":6,"name":"Elizabet","login":"asdasd_1334","password":"12345Qwerty","role":[{"id":2,"role":"USER"}]},
+  "7":{"id":7,"name":"Janna","login":"janna_lion","password":"12345Qwerty","role":[{"id":1,"role":"ADMIN"},{"id":2,"role":"USER"}]},
+  "8":{"id":8,"name":"Luci","login":"luciQwer","password":"12345Qwerty","role":[{"id":1,"role":"ADMIN"},{"id":2,"role":"USER"}]},
+  "9":{"id":9,"name":"Margo","login":"margo_B","password":"12345Qwerty","role":[{"id":2,"role":"USER"}]},
+  "10":{"id":10,"name":"Fedor","login":"fedor_apach","password":"12345Qwerty","role":[{"id":2,"role":"USER"}]},
+  "11":{"id":11,"name":"Stas","login":"stas_boreckiy","password":"12345Qwerty","role":[{"id":2,"role":"USER"}]},
+  "12":{"id":12,"name":"Mihail","login":"mihail_arkhangel","password":"12345Qwerty","role":[{"id":2,"role":"USER"},{"id":1,"role":"ADMIN"}]}}

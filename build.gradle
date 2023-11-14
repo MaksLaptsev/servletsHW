@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'ru.clevertec'
+version = '1.0-SNAPSHOT'
+
+ext{
+    junitVersion = '5.9.2'
+    lombokVersion = '1.18.26'
+    jacksonVersion = '2.14.2'
+    reflectionsVersion = '0.10.2'
+    log4jVersion = '1.2.17'
+    javaxVersion = '3.0.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
+    implementation "log4j:log4j:$log4jVersion"
+    implementation "javax.servlet:javax.servlet-api:$javaxVersion"
+    implementation 'javaee:javaee-api:5'
+
+    annotationProcessor  "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
