@@ -1,7 +1,6 @@
 package servlets;
 import entity.User;
 import service.UserService;
-import service.impl.UserServiceImpl;
 import utils.JsonUtil;
 import utils.ServiceUtil;
 

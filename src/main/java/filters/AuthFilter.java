@@ -2,7 +2,6 @@ package filters;
 
 import entity.User;
 import service.UserService;
-import service.impl.UserServiceImpl;
 import utils.ServiceUtil;
 
 import javax.servlet.*;
