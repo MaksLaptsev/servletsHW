@@ -1,6 +1,7 @@
 package filters;
 
 import entity.User;
+import exceptions.AuthFilterException;
 import service.UserService;
 import utils.ServiceUtil;
 
@@ -34,7 +35,7 @@ public class AuthFilter implements Filter {
             req.getSession().setAttribute("activeUser",user);
             chain.doFilter(request, response);
         } else {
-            throw new ServletException();
+            throw new ServletException("Пользователь не авторизован");
         }
     }
 

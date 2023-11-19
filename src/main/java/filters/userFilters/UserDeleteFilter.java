@@ -22,7 +22,7 @@ public class UserDeleteFilter implements Filter {
             Set<Role> roles = (Set<Role>) req.getSession().getAttribute("roles");
 
             if (roles.stream().noneMatch(arr -> arr.getRole().equals("ADMIN"))){
-                throw new ServletException();
+                throw new ServletException("Для совершения операции у пользователя недостаточно прав");
             }else chain.doFilter(request, response);
         }else chain.doFilter(request, response);
     }

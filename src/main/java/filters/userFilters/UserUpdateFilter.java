@@ -34,7 +34,7 @@ public class UserUpdateFilter implements Filter {
                     req.getSession().setAttribute("roles",userUpd.getRole());
                     chain.doFilter(request, response);
                 }else chain.doFilter(request, response);
-            }else throw new ServletException();
+            }else throw new ServletException("Для совершения операции у пользователя недостаточно прав");
         }else chain.doFilter(request, response);
     }
 

@@ -23,7 +23,7 @@ public class RoleFilter implements Filter {
         if (req.getMethod().equalsIgnoreCase("get")){
             chain.doFilter(request, response);
         }else if (roles.stream().noneMatch(arr -> arr.getRole().equals("ADMIN"))){
-            throw new ServletException();
+            throw new ServletException("Для совершения операции у пользователя недостаточно прав");
         }else chain.doFilter(request, response);
     }
 
