@@ -1,13 +1,14 @@
 package filters;
 
 import entity.User;
-import exceptions.AuthFilterException;
+import exception.UserException;
 import service.UserService;
 import utils.ServiceUtil;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -16,7 +17,7 @@ public class AuthFilter implements Filter {
     private UserService<User> userService;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         this.userService = (UserService<User>) ServiceUtil.getService(UserService.class);
     }
 
@@ -28,14 +29,20 @@ public class AuthFilter implements Filter {
 
         String[] data = new String(decoder.decode(authorization)).split(":");
 
-        User user = userService.findByLogin(data[0]);
+        try{
+            User user = userService.findByLogin(data[0]);
 
-        if (user.getPassword().equals(data[1])) {
-            req.getSession().setAttribute("roles", user.getRole());
-            req.getSession().setAttribute("activeUser",user);
-            chain.doFilter(request, response);
-        } else {
-            throw new ServletException("Пользователь не авторизован");
+            if (user.getPassword().equals(data[1])) {
+                req.getSession().setAttribute("roles", user.getRole());
+                req.getSession().setAttribute("activeUser",user);
+                chain.doFilter(request, response);
+            } else {
+                ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            }
+        }catch (UserException e){
+            ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.setContentType("text/plain");
+            response.getWriter().write(e.getMessage());
         }
     }
 

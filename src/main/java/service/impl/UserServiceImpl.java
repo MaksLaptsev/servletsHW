@@ -1,6 +1,7 @@
 package service.impl;
 
 import entity.User;
+import exception.UserException;
 import lombok.SneakyThrows;
 import repository.UserRepository;
 import repository.impl.UserRepositoryImpl;
@@ -17,18 +18,18 @@ public class UserServiceImpl implements UserService<User> {
 
     @Override
     public User create(User user) {
-        return userRepository.create(user);
+        return userRepository.create(user).orElseThrow(()->new UserException("Can not to create User"));
     }
 
     @Override
     public User update(User user) {
-        User userUpd = userRepository.getById(user.getId());
-        return userRepository.update(updateFields(user,userUpd));
+        User userUpd = userRepository.getById(user.getId()).orElseThrow(()-> new UserException("Fail to find user by id: "+user.getId()));
+        return userRepository.update(updateFields(user,userUpd)).orElseThrow(()->new UserException("Can not to update User"));
     }
 
     @Override
     public User getById(Long id) {
-        return userRepository.getById(id);
+        return userRepository.getById(id).orElseThrow(()-> new UserException("Fail to find user by id: "+id));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService<User> {
 
     @Override
     public User findByLogin(String s) {
-        return userRepository.findByLogin(s);
+        return userRepository.findByLogin(s).orElseThrow(()->new UserException("Fail to find user by login: "+s));
     }
 
     @SneakyThrows

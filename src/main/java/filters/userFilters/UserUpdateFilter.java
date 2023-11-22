@@ -7,6 +7,7 @@ import utils.JsonUtil;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +15,7 @@ import java.util.Set;
 @WebFilter(value = "/user", filterName = "3")
 public class UserUpdateFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 
@@ -34,7 +35,12 @@ public class UserUpdateFilter implements Filter {
                     req.getSession().setAttribute("roles",userUpd.getRole());
                     chain.doFilter(request, response);
                 }else chain.doFilter(request, response);
-            }else throw new ServletException("Для совершения операции у пользователя недостаточно прав");
+            }else {
+                ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+                response.setCharacterEncoding("utf-8");
+                response.setContentType("text/plain");
+                response.getWriter().write("Для совершения операции у пользователя недостаточно прав");
+            }
         }else chain.doFilter(request, response);
     }
 

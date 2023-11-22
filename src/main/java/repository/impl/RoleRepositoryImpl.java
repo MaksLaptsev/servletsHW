@@ -6,6 +6,7 @@ import utils.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class RoleRepositoryImpl implements RoleRepository<Role> {
     private Map<Long,Role> roles = new HashMap<>();
@@ -17,21 +18,21 @@ public class RoleRepositoryImpl implements RoleRepository<Role> {
     }
 
     @Override
-    public Role create(Role role) {
+    public Optional<Role> create(Role role) {
         role.setId(++id);
         roles.put(id, role);
-        return roles.get(id);
+        return Optional.of(roles.get(id));
     }
 
     @Override
-    public Role update(Role role) {
+    public Optional<Role> update(Role role) {
         roles.put(role.getId(), role);
-        return role;
+        return Optional.of(role);
     }
 
     @Override
-    public Role getById(Long id) {
-        return roles.get(id);
+    public Optional<Role> getById(Long id) {
+        return Optional.ofNullable(roles.get(id));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class RoleRepositoryImpl implements RoleRepository<Role> {
     }
 
     @Override
-    public Role findByRole(String s) {
-        return roles.values().stream().filter(r->r.getRole().equals(s)).findFirst().orElseThrow();
+    public Optional<Role> findByRole(String s) {
+        return Optional.of(roles.values().stream().filter(r->r.getRole().equals(s)).findFirst().orElseThrow());
     }
 }

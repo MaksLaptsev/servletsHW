@@ -6,6 +6,7 @@ import utils.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserRepositoryImpl<T> implements UserRepository<User> {
     private Map<Long,User> users = new HashMap<>();
@@ -17,21 +18,21 @@ public class UserRepositoryImpl<T> implements UserRepository<User> {
     }
 
     @Override
-    public User create(User user) {
+    public Optional<User>  create(User user) {
         user.setId(++id);
         users.put(id, user);
-        return users.get(id);
+        return Optional.of(users.get(id));
     }
 
     @Override
-    public User update(User user) {
+    public Optional<User> update(User user) {
         users.put(user.getId() ,user);
-        return user;
+        return Optional.of(user);
     }
 
     @Override
-    public User getById(Long id) {
-        return users.get(id);
+    public Optional<User>  getById(Long id) {
+        return Optional.ofNullable(users.get(id));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class UserRepositoryImpl<T> implements UserRepository<User> {
     }
 
     @Override
-    public User findByLogin(String s) {
-        return users.values().stream().filter(u->u.getLogin().equals(s)).findFirst().orElseThrow();
+    public Optional<User> findByLogin(String s) {
+        return users.values().stream().filter(u->u.getLogin().equals(s)).findFirst();
     }
 }

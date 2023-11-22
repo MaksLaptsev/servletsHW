@@ -5,13 +5,14 @@ import entity.Role;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
 @WebFilter(value = "/user", filterName = "4")
 public class UserDeleteFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 
@@ -22,7 +23,10 @@ public class UserDeleteFilter implements Filter {
             Set<Role> roles = (Set<Role>) req.getSession().getAttribute("roles");
 
             if (roles.stream().noneMatch(arr -> arr.getRole().equals("ADMIN"))){
-                throw new ServletException("Для совершения операции у пользователя недостаточно прав");
+                ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+                response.setCharacterEncoding("utf-8");
+                response.setContentType("text/plain");
+                response.getWriter().write("Для совершения операции у пользователя недостаточно прав");
             }else chain.doFilter(request, response);
         }else chain.doFilter(request, response);
     }

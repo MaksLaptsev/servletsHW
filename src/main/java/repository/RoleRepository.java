@@ -1,13 +1,15 @@
 package repository;
 
+import java.util.Optional;
+
 public interface RoleRepository <T>{
-    T create(T t);
+    Optional<T> create(T t);
 
-    T update(T t);
+    Optional<T> update(T t);
 
-    T getById(Long id);
+    Optional<T> getById(Long id);
 
     boolean deleteById(Long id);
 
-    T findByRole(String s);
+    Optional<T> findByRole(String s);
 }
